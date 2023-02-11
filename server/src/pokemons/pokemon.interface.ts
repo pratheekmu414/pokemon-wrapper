@@ -5,8 +5,8 @@ export interface IPokemonListing {
     url: string
 }
 export interface IPokemonService {
-    fetchAllPokemons: () => Promise<Array<IPokemonListing> | boolean>
-    fetchPokemonByName: (name: string) => Promise<unknown | boolean>
+    fetchAllPokemons: () => Promise<Array<IPokemonListing>>
+    fetchPokemonByName: (name: string) => Promise<unknown >
 }
 
 export interface IPokemonController {

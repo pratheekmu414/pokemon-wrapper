@@ -19,12 +19,13 @@ class PokemonService implements IPokemonService {
             return { name: response.data?.name, image: response?.data?.sprites?.back_default }
         }
         catch (err) {
+            logger.error(config.url, err)
             return false;
         }
     }
 
 
-    async fetchAllPokemons(): Promise<Array<IPokemonListing> | boolean> {
+    async fetchAllPokemons(): Promise<Array<IPokemonListing>> {
         const config = {
             method: 'get',
             url: `${POKEMON_BASE_URL}/api/v2/pokemon`,
@@ -38,13 +39,13 @@ class PokemonService implements IPokemonService {
 
         }
         catch (err) {
-
-            return false;
+            logger.error(config.url, err)
+            return [];
         }
 
     }
 
-    async fetchPokemonByName(name: string): Promise<unknown | boolean> {
+    async fetchPokemonByName(name: string): Promise<unknown> {
 
         const config = {
             method: 'get',
@@ -57,8 +58,8 @@ class PokemonService implements IPokemonService {
             return [{ name: response.data?.name, image: response?.data?.sprites?.back_default }]
         }
         catch (err) {
-            logger.error(err)
-            return false;
+            logger.error(config.url, err)
+            return [];
         }
 
     }
