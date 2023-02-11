@@ -7,7 +7,7 @@ const bodyParser = require("body-parser");
 
 
 const corsOptions = {
-  origin: ["http://localhost:3000"],
+  origin: ["http://localhost:3000","https://pokedex-nuxt3-production-pratheek.up.railway.app"],
   optionsSuccessStatus: 200, // For legacy browser support
 };
 
