@@ -16,7 +16,7 @@ class PokemonService implements IPokemonService {
         };
         try {
             const response = await axios(config)
-            return { name: response.data?.name, image: response?.data?.sprites?.back_default }
+            return { name: response.data?.name, image: response?.data?.sprites?.front_default }
         }
         catch (err) {
             logger.error(config.url, err)
