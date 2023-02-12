@@ -55,7 +55,32 @@ class PokemonService implements IPokemonService {
 
         try {
             const response = await axios(config)
-            return [{ name: response.data?.name, image: response?.data?.sprites?.front_default }]
+
+            const MOVES_LIMIT = 4
+            const pokemonMoves = response.data?.moves?.slice(0, MOVES_LIMIT)?.map((item: any) => {
+                return item?.move?.name
+            })
+
+
+            const pokemonType: [] = response.data?.types?.filter((item: any) => {
+                return item?.type?.name
+            }).map((item: any) => {
+                return item?.type?.name
+            })
+            const pokemonAbilities = response.data?.abilities?.filter((item: any) => {
+                return item?.ability?.name
+            }).map((item: any) => {
+                return item?.ability?.name
+            })
+            return [{
+                name: response.data?.name, image: response?.data?.sprites?.front_default, details: {
+                    experience: response.data?.base_experience,
+                    types: pokemonType,
+                    abilities: pokemonAbilities,
+                    moves: pokemonMoves
+
+                }
+            }]
         }
         catch (err) {
             logger.error(config.url, err)
