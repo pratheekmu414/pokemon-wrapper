@@ -23,14 +23,22 @@ class PokemonController implements IPokemonController {
                 const result = await this.pokemonService.fetchPokemonByName(name as string)
                 return res.json({ result })
             }
-            let result: Array<IPokemonListing> = await this.pokemonService.fetchAllPokemons()
-            if (req.query?.search && result?.length) {
+
+            if (req.query?.search) {
+                if (!isNaN(+req.query.search)) {
+                    const pokemonId= req.query.search
+                    const result = await this.pokemonService.fetchPokemonByName(`${pokemonId}`)
+                    return res.json({ result })
+                }
+                let result: Array<IPokemonListing> = await this.pokemonService.fetchAllPokemons()
                 const searchTerm = req.query?.search
                 const filteredPokemons = result?.filter((pokemon: IPokemonListing) => {
                     return pokemon.name.includes(searchTerm as string)
                 })
                 return res.json({ result: filteredPokemons })
             }
+
+            let result: Array<IPokemonListing> = await this.pokemonService.fetchAllPokemons()
             return res.json({ result })
         }
         catch (err: any) {
